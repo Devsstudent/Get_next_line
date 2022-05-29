@@ -1,31 +1,31 @@
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char buff[BUFFER_SIZE + 1];
+	static char buff[1024][BUFFER_SIZE + 1];
 	char *line;
 
 	line = (char *) malloc(sizeof(*line));
 	*line = 0;
 	if (*buff != 0)
-		line = ft_strjoin(line, buff);
+		line = ft_strjoin(line, buff[fd]);
 	if (ft_check_line(line))
-		ft_reset_buff(buff);
+		ft_reset_buff(buff[fd]);
 	while (!ft_check_line(line))
 	{
-		if (!ft_fill_buff(buff, fd))
+		if (!ft_fill_buff(buff[fd], fd))
 		{
 			if (*line == 0)
 				free(line);
 			else
 			{
-				ft_reset_buff(buff);
+				ft_reset_buff(buff[fd]);
 				return (line);
 			}
 			return (NULL);
 		}
-		line = ft_strjoin(line, buff); //Avec un join modifier qui s'arrete au \n et free
-		ft_reset_buff(buff);
+		line = ft_strjoin(line, buff[fd]); //Avec un join modifier qui s'arrete au \n et free
+		ft_reset_buff(buff[fd]);
 	}
 	return (line);
 }
@@ -67,7 +67,7 @@ char	*ft_reset_buff(char *buff)
 		i++;
 	if (buff[i] == '\n')
 		i++;
-	new_buff = ft_strdup(&buff[i]);
+	new_buff = ft_strdup(&(buff[i]));
 	if (!new_buff)
 		return (NULL);
 	ft_bzero(buff, BUFFER_SIZE);
@@ -78,7 +78,7 @@ char	*ft_reset_buff(char *buff)
 		i++;
 	}
 	free(new_buff);
-	return buff;
+	return (buff);
 }
 /*
 #include <fcntl.h>
@@ -88,7 +88,7 @@ int	main(void)
 	int	fd;
 	char *x;
 
-	fd = open("1-brouette.txt", O_RDONLY);
+	fd = open("files/41_with_nl", O_RDONLY);
 	while (x = get_next_line(fd))
 	{
 		printf("%s", x);

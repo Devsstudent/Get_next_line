@@ -1,5 +1,5 @@
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -15,9 +15,8 @@ typedef enum e_Bool{
 
 char	*get_next_line(int fd);
 t_Bool	ft_fill_buff(char *buff, int fd);
-void	ft_get_line(char *buff, char **line);
-t_Bool	ft_check_line(char *line);
 char	*ft_reset_buff(char *buff);
+t_Bool	ft_check_line(char *line);
 /*-------------------------UTILS-----------------------------*/
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(char *s);
