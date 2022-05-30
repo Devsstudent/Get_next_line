@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: odessein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 15:18:36 by odessein          #+#    #+#             */
+/*   Updated: 2022/05/30 15:18:40 by odessein         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -64,7 +76,7 @@ size_t	ft_len_till_nl(const char *s)
 	size_t	size;
 
 	size = 0;
-	while (s[size - 1] != '\n' && s[size] != '\0')
+	while (s[size] != '\0' && s[size - 1] != '\n')
 		size++;
 	return (size);
 }

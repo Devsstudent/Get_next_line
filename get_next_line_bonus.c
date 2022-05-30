@@ -1,36 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: odessein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 14:11:56 by odessein          #+#    #+#             */
+/*   Updated: 2022/05/30 17:08:11 by odessein         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char buff[1024][BUFFER_SIZE + 1];
-	char *line;
+	static char	buff[FOPEN_MAX][BUFFER_SIZE + 1];
+	char		*line;
 
+	if (fd < 0 || fd > FOPEN_MAX - 1)
+		return (NULL);
 	line = (char *) malloc(sizeof(*line));
 	*line = 0;
 	if (*buff != 0)
 		line = ft_strjoin(line, buff[fd]);
 	if (ft_check_line(line))
 		ft_reset_buff(buff[fd]);
+	line = ft_loop(line, buff[fd], fd);
+	return (line);
+}
+
+char	*ft_loop(char *line, char *buff, int fd)
+{
 	while (!ft_check_line(line))
 	{
-		if (!ft_fill_buff(buff[fd], fd))
+		if (!ft_fill_buff(buff, fd))
 		{
 			if (*line == 0)
 				free(line);
 			else
 			{
-				ft_reset_buff(buff[fd]);
+				ft_reset_buff(buff);
 				return (line);
 			}
 			return (NULL);
 		}
-		line = ft_strjoin(line, buff[fd]); //Avec un join modifier qui s'arrete au \n et free
-		ft_reset_buff(buff[fd]);
+		line = ft_strjoin(line, buff);
+		ft_reset_buff(buff);
 	}
 	return (line);
 }
 
-t_Bool	ft_fill_buff(char *buff, int fd)
+t_bool	ft_fill_buff(char *buff, int fd)
 {
 	int	read_val;
 
@@ -43,7 +63,7 @@ t_Bool	ft_fill_buff(char *buff, int fd)
 	return (FALSE);
 }
 
-t_Bool	ft_check_line(char *line)
+t_bool	ft_check_line(char *line)
 {
 	int	i;
 
@@ -59,7 +79,7 @@ t_Bool	ft_check_line(char *line)
 
 char	*ft_reset_buff(char *buff)
 {
-	int	i;
+	int		i;
 	char	*new_buff;
 
 	i = 0;
@@ -77,21 +97,7 @@ char	*ft_reset_buff(char *buff)
 		buff[i] = new_buff[i];
 		i++;
 	}
+	buff[i] = new_buff[i];
 	free(new_buff);
 	return (buff);
 }
-/*
-#include <fcntl.h>
-#include <stdio.h>
-int	main(void)
-{
-	int	fd;
-	char *x;
-
-	fd = open("files/41_with_nl", O_RDONLY);
-	while (x = get_next_line(fd))
-	{
-		printf("%s", x);
-		free(x);
-	}
-}*/

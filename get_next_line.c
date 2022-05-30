@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: odessein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 15:18:57 by odessein          #+#    #+#             */
+/*   Updated: 2022/05/30 17:07:27 by odessein         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	static char buff[BUFFER_SIZE + 1];
-	char *line;
+	static char	buff[BUFFER_SIZE + 1];
+	char		*line;
 
 	line = (char *) malloc(sizeof(*line));
 	*line = 0;
@@ -11,6 +23,12 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(line, buff);
 	if (ft_check_line(line))
 		ft_reset_buff(buff);
+	line = ft_loop(line, buff, fd);
+	return (line);
+}
+
+char	*ft_loop(char *line, char *buff, int fd)
+{
 	while (!ft_check_line(line))
 	{
 		if (!ft_fill_buff(buff, fd))
@@ -24,13 +42,13 @@ char	*get_next_line(int fd)
 			}
 			return (NULL);
 		}
-		line = ft_strjoin(line, buff); //Avec un join modifier qui s'arrete au \n et free
+		line = ft_strjoin(line, buff);
 		ft_reset_buff(buff);
 	}
 	return (line);
 }
 
-t_Bool	ft_fill_buff(char *buff, int fd)
+t_bool	ft_fill_buff(char *buff, int fd)
 {
 	int	read_val;
 
@@ -43,7 +61,7 @@ t_Bool	ft_fill_buff(char *buff, int fd)
 	return (FALSE);
 }
 
-t_Bool	ft_check_line(char *line)
+t_bool	ft_check_line(char *line)
 {
 	int	i;
 
@@ -59,7 +77,7 @@ t_Bool	ft_check_line(char *line)
 
 char	*ft_reset_buff(char *buff)
 {
-	int	i;
+	int		i;
 	char	*new_buff;
 
 	i = 0;
@@ -78,20 +96,5 @@ char	*ft_reset_buff(char *buff)
 		i++;
 	}
 	free(new_buff);
-	return buff;
+	return (buff);
 }
-/*
-#include <fcntl.h>
-#include <stdio.h>
-int	main(void)
-{
-	int	fd;
-	char *x;
-
-	fd = open("1-brouette.txt", O_RDONLY);
-	while (x = get_next_line(fd))
-	{
-		printf("%s", x);
-		free(x);
-	}
-}*/
