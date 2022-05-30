@@ -6,7 +6,7 @@
 /*   By: odessein <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:18:57 by odessein          #+#    #+#             */
-/*   Updated: 2022/05/30 17:07:27 by odessein         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:41:00 by odessein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	line = (char *) malloc(sizeof(*line));
+	if (!line)
+		return (NULL);
 	*line = 0;
 	if (*buff != 0)
 		line = ft_strjoin(line, buff);

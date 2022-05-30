@@ -6,7 +6,7 @@
 /*   By: odessein <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:07:02 by odessein          #+#    #+#             */
-/*   Updated: 2022/05/30 17:07:05 by odessein         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:40:07 by odessein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef enum e_bool{
 
 char	*get_next_line(int fd);
 t_bool	ft_fill_buff(char *buff, int fd);
-void	ft_get_line(char *buff, char **line);
 t_bool	ft_check_line(char *line);
 char	*ft_reset_buff(char *buff);
 char	*ft_loop(char *line, char *buff, int fd);

@@ -6,7 +6,7 @@
 /*   By: odessein <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:06:23 by odessein          #+#    #+#             */
-/*   Updated: 2022/05/30 17:14:44 by odessein         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:40:28 by odessein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef GET_NEXT_LINE_BONUS_H
@@ -15,7 +15,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
-# define OPEN_MAX 1024
 
 # include <unistd.h>
 # include <stdlib.h>

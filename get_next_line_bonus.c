@@ -6,7 +6,7 @@
 /*   By: odessein <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:11:56 by odessein          #+#    #+#             */
-/*   Updated: 2022/05/30 17:08:11 by odessein         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:43:38 by odessein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd > FOPEN_MAX - 1)
 		return (NULL);
 	line = (char *) malloc(sizeof(*line));
+	if (!line)
+		return (NULL);
 	*line = 0;
 	if (*buff != 0)
 		line = ft_strjoin(line, buff[fd]);
